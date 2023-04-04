@@ -1,0 +1,8 @@
+{
+  "framework": "react",
+  "root_path": "src",
+  "react": {
+    "page_path": "src/pages",
+    "component_path": "src/components"
+  }
+}
