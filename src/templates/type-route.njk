@@ -1,0 +1,19 @@
+
+
+{% if parentRoute %}
+import { param } from 'type-route'
+import { {{ parentRoute.camelCase() }}Route } from '{{importPath}}{{parentRoute.snakeCase()}}.route'
+
+export const {{name.camelCase()}}Route = {{ parentRoute.camelCase()}}Route.extend(
+  {
+    id: param.path.string,
+  },
+  (p) => `/${p.id}`,
+)
+
+{% else %}
+import { defineRoute } from 'type-route'
+
+export const {{ name.camelCase() }}Route = defineRoute('{{ name.snakeCase() }}')
+
+{% endif %}

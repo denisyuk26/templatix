@@ -1,11 +1,14 @@
 
-type {{ name }}Props = {
+{% set Component = name.pascalCase() %}
+
+
+type {{ Component }}Props = {
  
 }
 
-function {{ name }}(props: {{ name }}Props) {
-  return <div>{{ name }}</div>
+function {{ Component }}(props: {{ Component }}Props) {
+  return <div>{{ name.value }}</div>
 }
 
 
-export default {{ name }}
+export default {{Component }}

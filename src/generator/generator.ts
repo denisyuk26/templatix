@@ -31,14 +31,19 @@ export class Generator {
     fs.mkdirSync(path, { recursive: true });
   }
 
-  public createTemplateString(templatePath: string) {
+  public createTemplateString(
+    templatePath: string,
+    args?: Record<string, string>
+  ) {
     nunjucks.configure(".", {
       autoescape: true,
     });
     const template = `${templatePath}.njk`;
 
     const render = nunjucks.render(template, {
-      name: this.args.name,
+      ...this.args,
+      ...this.config,
+      ...args,
     });
 
     this.template = render;

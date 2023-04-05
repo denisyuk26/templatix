@@ -14,12 +14,14 @@ function initConfig() {
       path.join(rootDir, configFileName),
       JSON.stringify({
         framework: "react",
+        router: "type-route",
         general_extension: "ts",
         style: "module.scss",
         route: "route.ts",
         page: "ts",
         component: "ts",
         output: "src/output",
+        routesOutput: "src/routes",
 
         react: {
           page_path: "src/pages",

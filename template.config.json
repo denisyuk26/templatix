@@ -1,1 +1,16 @@
-{"framework":"react","general_extension":"ts","style":"module.scss","route":"route.ts","page":"ts","component":"ts","output":"src/output","react":{"page_path":"src/pages","component_path":"src/components","extension_list":{"page":"page.tsx","component":"tsx"}}}
+{
+  "framework": "react",
+  "router": "type-route",
+  "routesOutput": "src/routes",
+  "general_extension": "ts",
+  "style": "module.scss",
+  "route": "route.ts",
+  "page": "ts",
+  "component": "ts",
+  "output": "src/output",
+  "react": {
+    "page_path": "src/pages",
+    "component_path": "src/components",
+    "extension_list": { "page": "page.tsx", "component": "tsx" }
+  }
+}

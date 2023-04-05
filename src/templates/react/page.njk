@@ -1,9 +1,10 @@
 {% set kebabCaseName = name.kebabCase() %}
 {% set pascalCaseName = name.pascalCase() %}
+
 import styles from './{{ kebabCaseName }}.module.scss';
 
 function {{pascalCaseName}}Page() {
-  return <div className={styles.container}>{{name.value}}Page</div>;
+  return <div className={styles.container}>{{name.value}} Page</div>;
 }
 
-export default {{name.value}}Page;
+export default {{pascalCaseName}}Page;

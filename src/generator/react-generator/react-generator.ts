@@ -56,9 +56,16 @@ export class ReactGenerator extends Generator {
   }
 
   public createRoute(path: string) {
-    this.createTemplateString(`${this.templatePath}/route`);
+    if (this.config.router === "type-route") {
+      this.createTemplateString(`${this.templatePath}/type-route`, {
+        importPath: path,
+      });
+    } else {
+      this.createTemplateString(`${this.templatePath}/route`);
+    }
+
     this.createDirectory(path);
-    this.createFile(this.pagePath, this.config.route);
+    this.createFile(path, this.config.route);
   }
 
   public render(): void {
@@ -75,7 +82,7 @@ export class ReactGenerator extends Generator {
     }
 
     if (this.args.type.value === "route") {
-      this.createRoute(this.path ?? this.config.output);
+      this.createRoute(this.path ?? `${this.config.routesOutput}/`);
     }
   }
 }

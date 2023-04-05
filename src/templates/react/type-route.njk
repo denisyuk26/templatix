@@ -1,0 +1,24 @@
+
+{% set camelCaseName = name.camelCase() %}
+{% set camelCaseParentRoute = parentRoute.camelCase() %}
+{% set snakeCaseParentRoute = parentRoute.snakeCase() | lower %}
+{% set snakeCaseName = name.snakeCase() | lower %}
+
+
+{% if parentRoute %}
+import { param } from 'type-route'
+import { {{ camelCaseName }}Route } from '{{importPath}}{{snakeCaseParentRoute}}.route'
+
+export const {{camelCaseName}}Route = {{ camelCaseParentRoute}}Route.extend(
+  {
+    id: param.path.string,
+  },
+  (p) => `/${p.id}`,
+)
+
+{% else %}
+import { defineRoute } from 'type-route'
+
+export const {{ camelCaseName }}Route = defineRoute('{{ snakeCaseName }}')
+
+{% endif %}

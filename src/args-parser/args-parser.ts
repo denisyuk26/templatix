@@ -28,6 +28,11 @@ export class ArgsParser {
         description: "Path to the generated file",
         alias: "p",
       })
+      .option("parentRoute", {
+        type: "string",
+        description: "Parent route of the generated page",
+        alias: "pr",
+      })
       .help();
 
     this.args = argv;

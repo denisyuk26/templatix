@@ -1,2 +1,11 @@
 
-export const {{ name }}Route = '/{{ name | lower}}'
+{% set camelCaseRoute = name.camelCase() %}
+{% set snakeCaseRoute = name.snakeCase() | lower %}
+{% set snakeCaseParentRoute = parentRoute.snakeCase() | lower %}
+
+{% if snakeCaseParentRoute %}
+export const {{ camelCaseRoute }}Route = '/{{ snakeCaseParentRoute }}/{{ snakeCaseRoute }}'
+{% else %}
+
+export const {{ camelCaseRoute }}Route = '/{{ snakeCaseRoute }}'
+{% endif %}

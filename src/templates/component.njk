@@ -1,9 +1,11 @@
 
-function {{ name }}() {
+{% set Component = name.pascalCase() %}
+
+function {{ Component }}() {
   const el = document.createElement('div')
-  el.innerHTML = `<div>{{ name }}</div>`
+  el.innerHTML = `<div>{{ name.value }}</div>`
   return el
 }
 
 
-export default {{ name }}
+export default {{ Component }}
