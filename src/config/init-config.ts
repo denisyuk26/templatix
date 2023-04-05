@@ -15,21 +15,24 @@ function initConfig() {
       JSON.stringify({
         framework: "react",
         router: "type-route",
-        general_extension: "ts",
-        style: "module.scss",
-        route: "route.ts",
-        page: "ts",
-        component: "ts",
-        output: "src/output",
-        routesOutput: "src/routes",
+        extension_list: {
+          general_extension: "ts",
+          style: "module.scss",
+          route: "route.ts",
+          page: "ts",
+          component: "ts",
+        },
+        output: {
+          general: "src/output",
+          routes: "src/routes",
+        },
 
         react: {
-          page_path: "src/pages",
-          component_path: "src/components",
-          extension_list: {
-            page: "page.tsx",
-            component: "tsx",
+          output: {
+            page: "src/pages",
+            component: "src/components",
           },
+          extension_list: { page: "page.tsx", component: "tsx" },
         },
       })
     );

@@ -67,10 +67,13 @@ export class Generator {
     this.createTemplateString(this.templatePath);
     if (this.path) {
       this.createDirectory(this.path);
-      this.createFile(this.path, this.config.general_extension);
+      this.createFile(this.path, this.config.extension_list.general_extension);
     } else {
       this.createDirectory(`${this.config.output}/}`);
-      this.createFile(`${this.config.output}/}`, this.config.general_extension);
+      this.createFile(
+        `${this.config.output}/}`,
+        this.config.extension_list.general_extension
+      );
     }
   }
 }

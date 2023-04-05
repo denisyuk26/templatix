@@ -16,7 +16,11 @@ export class GeneratorFactory {
     if (framework === "react") {
       return new ReactGenerator(this.args, this.config);
     }
-    return new Generator(this.args, this.config);
+    if (framework === "none") {
+      return new Generator(this.args, this.config);
+    }
+
+    throw new Error("Framework not supported");
   }
 
   public render() {

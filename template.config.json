@@ -1,16 +1,23 @@
 {
   "framework": "react",
   "router": "type-route",
-  "routesOutput": "src/routes",
-  "general_extension": "ts",
-  "style": "module.scss",
-  "route": "route.ts",
-  "page": "ts",
-  "component": "ts",
-  "output": "src/output",
+  "extension_list": {
+    "general_extension": "ts",
+    "style": "module.scss",
+    "route": "route.ts",
+    "page": "page.ts",
+    "component": "ts"
+  },
+  "output": {
+    "general": "src/output",
+    "routes": "src/routes"
+  },
+
   "react": {
-    "page_path": "src/pages",
-    "component_path": "src/components",
+    "output": {
+      "page": "src/pages",
+      "component": "src/components"
+    },
     "extension_list": { "page": "page.tsx", "component": "tsx" }
   }
 }

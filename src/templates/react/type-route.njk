@@ -1,13 +1,11 @@
 
 {% set camelCaseName = name.camelCase() %}
+{% set snakeCaseName = name.snakeCase() | lower %}
+{% if parentRoute %}
 {% set camelCaseParentRoute = parentRoute.camelCase() %}
 {% set snakeCaseParentRoute = parentRoute.snakeCase() | lower %}
-{% set snakeCaseName = name.snakeCase() | lower %}
-
-
-{% if parentRoute %}
 import { param } from 'type-route'
-import { {{ camelCaseName }}Route } from '{{importPath}}{{snakeCaseParentRoute}}.route'
+import { {{ camelCaseParentRoute }}Route } from '{{importPath}}{{snakeCaseParentRoute}}.route'
 
 export const {{camelCaseName}}Route = {{ camelCaseParentRoute}}Route.extend(
   {

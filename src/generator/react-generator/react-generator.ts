@@ -20,13 +20,13 @@ export class ReactGenerator extends Generator {
   }
 
   private get pagePath() {
-    return this.path || `${this.config?.react.page_path}/`;
+    return this.path || `${this.config?.react.output.page}/`;
   }
 
   private get componentPath() {
     return (
       this.path ||
-      `${this.config?.react.component_path}/${this.args.name.value}/`
+      `${this.config?.react.output.component}/${this.args.name.value}/`
     );
   }
 
@@ -43,16 +43,21 @@ export class ReactGenerator extends Generator {
   public createStyles(path: string) {
     this.createTemplateString(`${this.templatePath}/styles`);
     this.createDirectory(path);
-    this.createFile(path, this.config.style);
+    this.createFile(path, this.config.extension_list.style);
   }
 
   public createPage() {
     this.createTemplateString(`${this.templatePath}/page`);
-    this.createDirectory(this.pagePath);
-    this.createFile(this.pagePath, this.extensionsList.page);
-    this.createDirectory(`${this.pagePath}components`);
-    this.createStyles(this.pagePath);
-    this.createRoute(this.pagePath);
+    this.createDirectory(`${this.pagePath}${this.args.name.snakeCase()}/`);
+    this.createFile(
+      `${this.pagePath}${this.args.name.snakeCase()}/`,
+      this.extensionsList.page
+    );
+    this.createDirectory(
+      `${this.pagePath}${this.args.name.snakeCase()}/components`
+    );
+    this.createStyles(`${this.pagePath}${this.args.name.snakeCase()}/`);
+    this.createRoute(`${this.pagePath}${this.args.name.snakeCase()}/`);
   }
 
   public createRoute(path: string) {
@@ -65,7 +70,7 @@ export class ReactGenerator extends Generator {
     }
 
     this.createDirectory(path);
-    this.createFile(path, this.config.route);
+    this.createFile(path, this.config.extension_list.route);
   }
 
   public render(): void {
@@ -82,7 +87,7 @@ export class ReactGenerator extends Generator {
     }
 
     if (this.args.type.value === "route") {
-      this.createRoute(this.path ?? `${this.config.routesOutput}/`);
+      this.createRoute(this.path ?? `${this.config.output.routes}/`);
     }
   }
 }
