@@ -20,7 +20,7 @@ export class ArgsParser {
       })
       .option("framework", {
         type: "string",
-        description: "Framework of the entity (React, Vue)",
+        description: "Framework of the entity (React)",
         alias: "f",
       })
       .option("path", {
