@@ -1,6 +1,6 @@
 {
   "name": "templatix",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "Simple template generator",
   "main": "index.js",
   "bin": {
@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/denisyuk26/templatix#readme",
   "devDependencies": {
-    "@types/lodash": "^4.14.192",
     "@types/node": "^18.15.11",
     "@types/nunjucks": "^3.2.2",
     "@types/yargs": "^17.0.24",
@@ -33,7 +32,6 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
     "nunjucks": "^3.2.3",
     "ts-node": "^10.9.1",
     "yargs": "^17.7.1"
