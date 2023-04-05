@@ -1,2 +1,4 @@
 
-export const {{ name }}Route = '/{{ name | lower}}'
+{% set camelCaseName = name.camelCase() %}
+
+export const {{ camelCaseName | replace(camelCaseName[0], camelCaseName[0].toLowerCase()) }}Route = '/{{ name.kebabCase() | lower}}'

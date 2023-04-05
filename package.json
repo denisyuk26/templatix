@@ -1,11 +1,17 @@
 {
   "name": "templatix",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Simple template generator",
   "main": "index.js",
+  "bin": {
+    "templatix-init": "./dist/config/init-config.js",
+    "templatix": "./dist/index.js"
+  },
   "scripts": {
-    "build": "tsc",
+    "postinstall": "cp -r ./src/templates ./dist/templates",
+    "build": "tsc && npm run postinstall",
     "generate": "ts-node ./src/index.ts",
+    "init-config": "ts-node ./src/config/init-config.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

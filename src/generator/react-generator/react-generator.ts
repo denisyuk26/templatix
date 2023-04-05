@@ -1,39 +1,37 @@
-import { Config } from "../../config";
+import { Config } from "../../config/types";
 import { Generator } from "../generator";
 import { GeneratorParams } from "../types";
-import { EXTENSIONS_LIST, TEMPLATE_PATH } from "./constants";
-import { ExtensionsList } from "./types";
+import { TEMPLATE_PATH } from "./constants";
 
 export class ReactGenerator extends Generator {
-  private extensionsList: ExtensionsList = EXTENSIONS_LIST;
   public templatePath: string = TEMPLATE_PATH;
-  config: Config | undefined;
+  public config: Config;
 
-  constructor(params: GeneratorParams, config?: Config) {
-    super(params);
+  constructor(params: GeneratorParams, config: Config) {
+    super(params, config);
     this.config = config;
   }
 
   public get path(): string | undefined {
-    if (this.args.path.value) {
+    if (this.args.path?.value) {
       return `${this.args.path.value}/`;
     }
-    return;
+    return undefined;
   }
 
-  public get pagePath() {
-    if (this.path) {
-      return this.path;
-    }
-
-    return `${this.config?.react.page_path}/`;
+  private get pagePath() {
+    return this.path || `${this.config?.react.page_path}/`;
   }
 
-  public get componentPath() {
-    if (this.path) {
-      return this.path;
-    }
-    return `${this.config?.react.component_path}/${this.args.name.value}/`;
+  private get componentPath() {
+    return (
+      this.path ||
+      `${this.config?.react.component_path}/${this.args.name.value}/`
+    );
+  }
+
+  private get extensionsList() {
+    return this.config.react.extension_list;
   }
 
   public createComponent() {
@@ -45,24 +43,22 @@ export class ReactGenerator extends Generator {
   public createStyles(path: string) {
     this.createTemplateString(`${this.templatePath}/styles`);
     this.createDirectory(path);
-    this.createFile(path, this.extensionsList.styles);
+    this.createFile(path, this.config.style);
   }
 
   public createPage() {
     this.createTemplateString(`${this.templatePath}/page`);
     this.createDirectory(this.pagePath);
-    this.createDirectory(`${this.pagePath}components`);
     this.createFile(this.pagePath, this.extensionsList.page);
+    this.createDirectory(`${this.pagePath}components`);
     this.createStyles(this.pagePath);
-    this.createRoute();
+    this.createRoute(this.pagePath);
   }
 
-  public createRoute() {
+  public createRoute(path: string) {
     this.createTemplateString(`${this.templatePath}/route`);
-    if (this.path) {
-      this.createDirectory(this.path);
-    }
-    this.createFile(this.pagePath, this.extensionsList.route);
+    this.createDirectory(path);
+    this.createFile(this.pagePath, this.config.route);
   }
 
   public render(): void {
@@ -76,6 +72,10 @@ export class ReactGenerator extends Generator {
 
     if (this.args.type.value === "styles") {
       this.createStyles(this.path ?? "styles");
+    }
+
+    if (this.args.type.value === "route") {
+      this.createRoute(this.path ?? this.config.output);
     }
   }
 }

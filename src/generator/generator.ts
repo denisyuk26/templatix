@@ -1,23 +1,30 @@
 import fs from "fs";
 import nunjucks from "nunjucks";
+import { Logger } from "../logger/logger";
 import { TEMPLATE_PATH } from "./constants";
+
+import type { Config } from "../config/types";
 import type { GeneratorParams } from "./types";
 
 export class Generator {
+  public args: GeneratorParams;
+  public config: Config;
+  public logger: Logger;
+
   public templatePath: string = TEMPLATE_PATH;
   private template: string | undefined = undefined;
-  public args: GeneratorParams;
-  extension: string;
 
-  constructor(params: GeneratorParams) {
+  constructor(params: GeneratorParams, config: Config) {
     this.args = params;
-    this.extension = "ts";
+    this.config = config;
+    this.logger = new Logger();
   }
+
   public get path(): string | undefined {
-    if (this.args.path.value) {
+    if (this.args.path?.value) {
       return `${this.args.path.value}/`;
     }
-    return;
+    return undefined;
   }
 
   public createDirectory(path: string) {
@@ -31,7 +38,7 @@ export class Generator {
     const template = `${templatePath}.njk`;
 
     const render = nunjucks.render(template, {
-      name: this.args.name.pascalCase(),
+      name: this.args.name,
     });
 
     this.template = render;
@@ -39,25 +46,26 @@ export class Generator {
 
   public createFile(path: string, extension: string) {
     const generatedPath = `${path}${this.args.name.kebabCase()}.${extension}`;
-
     if (fs.existsSync(generatedPath)) {
-      console.log(`File ${generatedPath} already exists`);
+      this.logger.logFailure(`File ${generatedPath} already exists`);
+
       return;
     }
 
     if (this.template) {
       fs.writeFileSync(generatedPath, this.template);
+      this.logger.logSuccess(`File ${generatedPath} created`);
     }
   }
 
   public render() {
-    if (!this.path) {
-      console.log("Path is not defined");
-      return;
-    }
     this.createTemplateString(this.templatePath);
-
-    this.createDirectory(this.path);
-    this.createFile(this.path, this.extension);
+    if (this.path) {
+      this.createDirectory(this.path);
+      this.createFile(this.path, this.config.general_extension);
+    } else {
+      this.createDirectory(`${this.config.output}/}`);
+      this.createFile(`${this.config.output}/}`, this.config.general_extension);
+    }
   }
 }

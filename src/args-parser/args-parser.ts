@@ -1,4 +1,5 @@
 import yargs from "yargs";
+import { Argument } from "../value-objects/argument";
 
 export class ArgsParser {
   private args: Record<string, any>;
@@ -32,11 +33,16 @@ export class ArgsParser {
     this.args = argv;
   }
 
-  public showHelp(): void {
-    yargs.showHelp();
-  }
-
   public getArgValue(argName: string): any {
     return this.args[argName];
+  }
+
+  public get arguments(): Record<string, Argument> {
+    const data = Object.entries(this.args).map(([key, value]) => [
+      key,
+      new Argument(value),
+    ]);
+
+    return Object.fromEntries(data);
   }
 }
