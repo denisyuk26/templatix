@@ -64,14 +64,14 @@ export class Generator {
   }
 
   public render() {
-    this.createTemplateString(this.templatePath);
+    this.createTemplateString(`${this.templatePath}/${this.args.type.value}`);
     if (this.path) {
       this.createDirectory(this.path);
       this.createFile(this.path, this.config.extension_list.general_extension);
     } else {
-      this.createDirectory(`${this.config.output}/}`);
+      this.createDirectory(`${this.config.output.general}/`);
       this.createFile(
-        `${this.config.output}/}`,
+        `${this.config.output.general}/`,
         this.config.extension_list.general_extension
       );
     }

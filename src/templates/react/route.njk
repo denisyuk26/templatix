@@ -1,6 +1,6 @@
+{% if parentRoute.snakeCase() | lower %}
+export const {{ name.camelCase() }}Route = '/{{ parentRoute.snakeCase() | lower }}/{{ name.snakeCase() | lower }}'
+{% else %}
 
-{% set camelCaseName = name.camelCase() %}
-{% set kebabCaseName = name.kebabCase() | lower %}
-{% set routeName = camelCaseName | replace(camelCaseName[0], camelCaseName[0].toLowerCase()) %}
-
-export const {{ routeName }}Route = '/{{ kebabCaseName }}'
+export const {{ name.camelCase() }}Route = '/{{ name.snakeCase() | lower }}'
+{% endif %}

@@ -1,14 +1,11 @@
 
-{% set Component = name.pascalCase() %}
-
-
-type {{ Component }}Props = {
+type {{ name.pascalCase() }}Props = {
  
 }
 
-function {{ Component }}(props: {{ Component }}Props) {
+function {{ name.pascalCase() }}(props: {{ name.pascalCase() }}Props) {
   return <div>{{ name.value }}</div>
 }
 
 
-export default {{Component }}
+export default {{name.pascalCase()}}

@@ -1,11 +1,6 @@
-
-{% set camelCaseRoute = name.camelCase() %}
-{% set snakeCaseRoute = name.snakeCase() | lower %}
-{% set snakeCaseParentRoute = parentRoute.snakeCase() | lower %}
-
-{% if snakeCaseParentRoute %}
-export const {{ camelCaseRoute }}Route = '/{{ snakeCaseParentRoute }}/{{ snakeCaseRoute }}'
+{% if parentRoute.snakeCase() | lower %}
+export const {{ name.camelCase() }}Route = '/{{ parentRoute.snakeCase() | lower }}/{{ name.snakeCase() | lower }}'
 {% else %}
 
-export const {{ camelCaseRoute }}Route = '/{{ snakeCaseRoute }}'
+export const {{ name.camelCase() }}Route = '/{{ name.snakeCase() | lower }}'
 {% endif %}
