@@ -21,8 +21,8 @@ scripts: {
 
 | Field                            | Description                                         | Default        |
 | -------------------------------- | --------------------------------------------------- | -------------- |
-| framework                        | The chosen framework                                | react          |
-| router                           | The chosen router library                           | type-route     |
+| framework                        | The chosen framework (react, none)                  | react          |
+| router                           | The chosen router library (type-route, none)        | type-route     |
 | extension_list.general_extension | The general extension for files                     | ts             |
 | extension_list.style             | The extension for stylesheets                       | module.scss    |
 | extension_list.route             | The extension for route files                       | route.ts       |

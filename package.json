@@ -1,6 +1,6 @@
 {
   "name": "templatix",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "Simple template generator",
   "main": "index.js",
   "bin": {
